@@ -133,19 +133,16 @@ int main()
             auto tagname = qchain.front();
             qchain.pop_front();
 
-            if (tagname != root->name)
+            auto search = tagnode->childs.find(tagname);
+            if (search != tagnode->childs.end())
+                // FOUND tag
+                tagnode = tagnode->childs[tagname];
+            else
             {
-                auto search = tagnode->childs.find(tagname);
-                if (search != tagnode->childs.end())
-                    // FOUND tag
-                    tagnode = tagnode->childs[tagname];
-                else
-                {
-                    // NOT FOUND
-                    std::cout << "Not Found!\n";
-                    clean = false;
-                    break;
-                }
+                // NOT FOUND
+                std::cout << "Not Found!\n";
+                clean = false;
+                break;
             }
         }
         if (clean)
